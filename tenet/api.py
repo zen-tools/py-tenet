@@ -145,19 +145,17 @@ class TenetAPI(object):
         self._bonus_rest = value
 
     def _request(self, url):
-        payload = {
-            'login': self._username,
-            'md5pass': self._passcode,
-            't': int(time.time())
-        }
-
-        r = self._session.post(url, data=payload, timeout=5)
         try:
+            payload = {
+                'login': self._username,
+                'md5pass': self._passcode,
+                't': int(time.time())
+            }
+            r = self._session.post(url, data=payload, timeout=5)
             r.raise_for_status()
-        except requests.exceptions.RequestException as e:
+            return r.content
+        except IOError as e:
             raise TenetBadRequest(str(e))
-
-        return r.content
 
     def _check_account(self):
         # Get account info

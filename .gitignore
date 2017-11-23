@@ -7,5 +7,3 @@ venv*
 *.log
 *.py.lprof
 !requirements.txt
-main.cfg
-runtime

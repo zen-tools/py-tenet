@@ -1,7 +1,7 @@
 ## TenetAPI
 
 # Description
-This is a Python module for ISP TeNeT API.
+This is a Python module for work with ISP TeNeT API.
 
 # Usage:
 ```

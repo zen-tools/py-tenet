@@ -1,9 +1,9 @@
 ## TenetAPI
 
-# Description
+## Description
 This is a Python module for work with ISP TeNeT API.
 
-# Usage:
+## Usage:
 ```
 >>> from tenet.api import TenetAPI
 >>> from tenet.utils import sizeof_fmt

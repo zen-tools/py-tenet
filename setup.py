@@ -20,7 +20,7 @@ setup(
     install_requires=['requests'],
     classifiers=[
         "Programming Language :: Python :: 2",
-        "License :: OSI Approved :: GPL License",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ]
 )

@@ -7,3 +7,6 @@ venv*
 *.log
 *.py.lprof
 !requirements.txt
+build/
+dist/
+tenet.egg-info/

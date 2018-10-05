@@ -164,9 +164,7 @@ class TenetAPI(object):
 
         result = etree.findtext("./result")
         if result != "OK":
-            error_msg = etree.findtext("./error_desc")
-            if not error_msg:
-                error_msg = "Unknown Error"
+            error_msg = etree.findtext("./error_desc") or "Unknown Error"
             raise TenetServerError(error_msg.strip())
 
         self.account_id = etree.findtext("./LS")
@@ -183,9 +181,7 @@ class TenetAPI(object):
 
         result = etree.findtext("./result")
         if result != "OK":
-            error_msg = etree.findtext("./error_desc")
-            if not error_msg:
-                error_msg = "Unknown Error"
+            error_msg = etree.findtext("./error_desc") or "Unknown Error"
             raise TenetServerError(error_msg.strip())
 
         self.bonus_state = etree.findtext("./bonus")

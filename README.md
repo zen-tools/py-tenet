@@ -1,4 +1,4 @@
-# TenetAPI
+# TenetAccount
 
 ## Description
 This is a Python module for the ISP TeNeT API.

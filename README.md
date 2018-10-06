@@ -5,14 +5,14 @@ This is a Python module for work with ISP TeNeT API.
 
 ## Usage:
 ```
->>> from tenet.api import TenetAPI
+>>> from tenet import TenetAPI
 >>> from tenet.utils import sizeof_fmt
 >>> TenetAPI()
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
-  File "tenet/api.py", line 35, in __init__
+  File "tenet/__init__.py", line 34, in __init__
     "Usage: TenetAPI(username='user', passcode='pass')"
-AssertionError: Usage: TenetAPI(username='user', passcode='pass') or TenetAPI(username='user', md5passcode='hash')
+tenet.exceptions.TenetBaseException: Usage: TenetAPI(username='user', passcode='pass') or TenetAPI(username='user', md5passcode='hash')
 >>> api = TenetAPI(
 ...     username='user-00000',
 ...     md5passcode='8b46a9e3095d350b2faeb1c503239b5e'

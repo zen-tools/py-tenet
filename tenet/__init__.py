@@ -195,7 +195,7 @@ class TenetAccount(object):
         self.state = etree.findtext("./lsstate")
         self.enabled = etree.findtext("./usrstate")
         self.saldo = etree.findtext("./saldo")
-        self.service_name = etree.findtext("./evpkt")
+        self.tariff_plan = etree.findtext("./evpkt")
         self.good_day = etree.findtext("./good_day")
 
     def _check_bonus(self):

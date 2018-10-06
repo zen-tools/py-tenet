@@ -11,11 +11,11 @@ This is a Python module for the ISP TeNeT API.
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
   File "tenet/__init__.py", line 34, in __init__
-    "Usage: TenetAccount(username='user', passcode='pass')"
-tenet.exceptions.TenetBaseException: Usage: TenetAccount(username='user', passcode='pass') or TenetAccount(username='user', md5passcode='hash')
+    "Usage: TenetAccount(username='user', password='pass')"
+tenet.exceptions.TenetBaseException: Usage: TenetAccount(username='user', password='pass') or TenetAccount(username='user', md5password='hash')
 >>> account = TenetAccount(
 ...     username='user-00000',
-...     md5passcode='8b46a9e3095d350b2faeb1c503239b5e'
+...     md5password='8b46a9e3095d350b2faeb1c503239b5e'
 ... )
 >>> account.update()
 >>> print account.id

@@ -1,5 +1,5 @@
 """
-Global TenetAPI exception and warning classes.
+Global TenetAccount exceptions and warnings classes.
 """
 
 
@@ -14,5 +14,5 @@ class TenetBadRequest(TenetBaseException):
 
 
 class TenetServerError(TenetBaseException):
-    """We have got error message from API."""
+    """Received error message from API."""
     pass

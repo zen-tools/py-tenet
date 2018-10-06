@@ -1,40 +1,40 @@
 # TenetAPI
 
 ## Description
-This is a Python module for work with ISP TeNeT API.
+This is a Python module for the ISP TeNeT API.
 
 ## Usage:
 ```
->>> from tenet import TenetAPI
+>>> from tenet import TenetAccount
 >>> from tenet.utils import sizeof_fmt
->>> TenetAPI()
+>>> TenetAccount()
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
   File "tenet/__init__.py", line 34, in __init__
-    "Usage: TenetAPI(username='user', passcode='pass')"
-tenet.exceptions.TenetBaseException: Usage: TenetAPI(username='user', passcode='pass') or TenetAPI(username='user', md5passcode='hash')
->>> api = TenetAPI(
+    "Usage: TenetAccount(username='user', passcode='pass')"
+tenet.exceptions.TenetBaseException: Usage: TenetAccount(username='user', passcode='pass') or TenetAccount(username='user', md5passcode='hash')
+>>> account = TenetAccount(
 ...     username='user-00000',
 ...     md5passcode='8b46a9e3095d350b2faeb1c503239b5e'
 ... )
->>> api.update()
->>> print api.api.account_id
+>>> account.update()
+>>> print account.id
 00000
->>> print api.account_state
+>>> print account.state
 Normal
->>> print api.account_enabled
+>>> print account.enabled
 True
->>> print api.service_name
+>>> print account.tariff_plan
 Сверхскоростной Интернет и Wi-Fi
->>> print api.saldo
+>>> print account.saldo
 374.60
->>> print api.good_day
+>>> print account.good_day
 False
->>> print api.bonus_state
+>>> print account.bonus_state
 Enabled
->>> api.toggle_bonus()
->>> print api.bonus_state
+>>> account.toggle_bonus()
+>>> print account.bonus_state
 Disabled
->>> print sizeof_fmt(api.bonus_rest)
+>>> print sizeof_fmt(account.bonus_rest)
 10.0 GiB
 ```

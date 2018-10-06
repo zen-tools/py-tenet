@@ -7,7 +7,7 @@ with open('README.md', 'r') as fp:
 
 setup(
     name='tenet',
-    description='stats.tenet.ua API client',
+    description='stats.tenet.ua account manager',
     long_description=long_description,
     long_description_content_type="text/markdown",
     version='0.5',

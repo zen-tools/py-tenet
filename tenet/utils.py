@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-TenetAPI utility functions.
+TenetAccount utility functions.
 """
 
 import hashlib
@@ -8,13 +8,13 @@ import hashlib
 
 def sizeof_fmt(num_in_bytes):
     """
-    Converts bytes in human readable format (e.g., 1K 234M 2G)
+    Converts bytes into human readable format (e.g., 1K 234M 2G)
 
     @param num_in_bytes: Number in bytes
     @type num_in_bytes: **any** numeric type
 
     @rtype: string
-    @return: Bytes in human readable format (e.g., 1K 234M 2G)
+    @return: Bytes into human readable format (e.g., 1K 234M 2G)
     """
     for unit in ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB']:
         if abs(num_in_bytes) < 1024.0:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Defines the :class:`TenetAPI` class, to be used as Tenet API client
+Defines the :class:`TenetAccount` class, to be used to retrieve Tenet account info
 """
 from . import utils
 from . import exceptions
@@ -11,11 +11,11 @@ import requests
 from decimal import Decimal
 from xml.etree import ElementTree
 
-__all__ = ['TenetAPI', 'utils', 'exceptions']
+__all__ = ['TenetAccount', 'utils', 'exceptions']
 
 
-class TenetAPI(object):
-    """Tenet API client for stats.tenet.ua"""
+class TenetAccount(object):
+    """Tenet client account for stats.tenet.ua"""
 
     ACC_STATE_URL = "https://stats.tenet.ua/utl/!gadgapi.ls_state_evpkt"
     BONUS_CHECK_URL = "https://stats.tenet.ua/utl/!gadgapi.ev_bonus_check"
@@ -29,7 +29,7 @@ class TenetAPI(object):
     BONUS_DISABLED = "Disabled"
     BONUS_ENDED = "Ended"
 
-    USER_AGENT = "TenetAPI/1.0"
+    USER_AGENT = "TenetAccount/1.0"
 
     def __init__(self, **kwargs):
         """
@@ -38,30 +38,30 @@ class TenetAPI(object):
         @param username: User's login to stats.tenet.ua
         @type username: string
 
-        @param passcode: User's password to stats.tenet.ua
-        @type passcode: string
+        @param password: User's password to stats.tenet.ua
+        @type password: string
 
-        @param md5passcode: The MD5 hash of user's password to stats.tenet.ua
-        @type md5passcode: string
+        @param md5password: The MD5 hash of user's password to stats.tenet.ua
+        @type md5password: string
         """
-        all_opts = [('username', 'passcode'), ('username', 'md5passcode')]
+        all_opts = [('username', 'password'), ('username', 'md5password')]
         is_ok = any([set(opts).issubset(kwargs.keys()) for opts in all_opts])
         if not is_ok:
             raise exceptions.TenetBaseException(
-                "Usage: TenetAPI(username='user', passcode='pass')"
-                " or TenetAPI(username='user', md5passcode='hash')"
+                "Usage: TenetAccount(username='user', password='pass')"
+                " or TenetAccount(username='user', md5password='hash')"
             )
 
         # account id number
-        self._account_id = None
+        self._id = None
         # debtor, creditor or someone else?
-        self._account_state = None
+        self._state = None
         # is account on or off?
-        self._account_enabled = None
+        self._enabled = None
         # saldo
         self._saldo = None
         # tariff
-        self._service_name = None
+        self._tariff_plan = None
         # is "Good day" enabled?
         self._good_day = None
         # on, off, end
@@ -70,9 +70,9 @@ class TenetAPI(object):
         self._bonus_rest = None
 
         self._username = kwargs.get('username')
-        self._passcode = kwargs.get('md5passcode')
-        if not self._passcode:
-            self._passcode = utils.password_to_hash(kwargs.get('passcode'))
+        self._password = kwargs.get('md5password')
+        if not self._password:
+            self._password = utils.password_to_hash(kwargs.get('password'))
 
         self._session = requests.Session()
         self._session.headers.update({
@@ -80,39 +80,39 @@ class TenetAPI(object):
         })
 
     @property
-    def account_id(self):
+    def id(self):
         """Get or set the account id."""
-        return self._account_id
+        return self._id
 
-    @account_id.setter
-    def account_id(self, value):
-        self._account_id = value
+    @id.setter
+    def id(self, value):
+        self._id = value
 
     @property
-    def account_state(self):
+    def state(self):
         """Get or set the account state."""
-        return self._account_state
+        return self._state
 
-    @account_state.setter
-    def account_state(self, value):
+    @state.setter
+    def state(self, value):
         value = value.lower()
         if value == 'n':
-            self._account_state = self.ACC_STATE_NORMAL
+            self._state = self.ACC_STATE_NORMAL
         elif value == 'l':
-            self._account_state = self.ACC_STATE_LOCKED
+            self._state = self.ACC_STATE_LOCKED
         else:
-            self._account_state = self.ACC_STATE_WARNING
+            self._state = self.ACC_STATE_WARNING
 
     @property
-    def account_enabled(self):
+    def enabled(self):
         """Get or set the account enabled status."""
-        return self._account_enabled
+        return self._enabled
 
-    @account_enabled.setter
-    def account_enabled(self, value):
-        self._account_enabled = False
+    @enabled.setter
+    def enabled(self, value):
+        self._enabled = False
         if value.upper() == "ON":
-            self._account_enabled = True
+            self._enabled = True
 
     @property
     def saldo(self):
@@ -124,17 +124,17 @@ class TenetAPI(object):
         self._saldo = "%.2f" % Decimal(value.replace(',', '.'))
 
     @property
-    def service_name(self):
+    def tariff_plan(self):
         """Get or set the service name."""
-        return self._service_name
+        return self._tariff_plan
 
-    @service_name.setter
-    def service_name(self, value):
-        self._service_name = value
+    @tariff_plan.setter
+    def tariff_plan(self, value):
+        self._tariff_plan = value
 
     @property
     def good_day(self):
-        """Get or set the good day status."""
+        """Get or set the Good Day service status."""
         return self._good_day
 
     @good_day.setter
@@ -159,7 +159,7 @@ class TenetAPI(object):
 
     @property
     def bonus_rest(self):
-        """Get or set the bonus rest."""
+        """Get or set the ammount of bonus left."""
         return self._bonus_rest
 
     @bonus_rest.setter
@@ -172,7 +172,7 @@ class TenetAPI(object):
         try:
             payload = {
                 'login': self._username,
-                'md5pass': self._passcode,
+                'md5pass': self._password,
                 't': int(time.time())
             }
             r = self._session.post(url, data=payload, timeout=5)
@@ -191,11 +191,11 @@ class TenetAPI(object):
             error_msg = etree.findtext("./error_desc") or "Unknown Error"
             raise exceptions.TenetServerError(error_msg.strip())
 
-        self.account_id = etree.findtext("./LS")
-        self.account_state = etree.findtext("./lsstate")
-        self.account_enabled = etree.findtext("./usrstate")
+        self.id = etree.findtext("./LS")
+        self.state = etree.findtext("./lsstate")
+        self.enabled = etree.findtext("./usrstate")
         self.saldo = etree.findtext("./saldo")
-        self.service_name = etree.findtext("./evpkt")
+        self.tariff_plan = etree.findtext("./evpkt")
         self.good_day = etree.findtext("./good_day")
 
     def _check_bonus(self):

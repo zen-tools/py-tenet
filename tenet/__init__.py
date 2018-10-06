@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Defines the :class:`TenetAccount` class, to be used to retrieve Tenet account info
+Defines the :class:`TenetAccount` class,to be used to retrieve Tenet account info  # NOQA
 """
 from . import utils
 from . import exceptions

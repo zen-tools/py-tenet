@@ -10,7 +10,7 @@ setup(
     description='stats.tenet.ua account manager',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    version='0.5',
+    version='0.6',
     author='Dmitriy Poltavchenko',
     author_email='poltavchenko.dmitriy@gmail.com',
     url='https://github.com/zen-tools/py-tenet',

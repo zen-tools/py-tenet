@@ -18,23 +18,23 @@ tenet.exceptions.TenetBaseException: Usage: TenetAccount(username='user', passwo
 ...     md5password='8b46a9e3095d350b2faeb1c503239b5e'
 ... )
 >>> account.update()
->>> print account.id
+>>> print(account.id)
 00000
->>> print account.state
+>>> print(account.state)
 Normal
->>> print account.enabled
+>>> print(account.enabled)
 True
->>> print account.tariff_plan
-Сверхскоростной Интернет и Wi-Fi
->>> print account.saldo
+>>> print(account.tariff_plan)
+Швидкісний Інтернет та Wi-Fi
+>>> print(account.saldo)
 374.60
->>> print account.good_day
+>>> print(account.good_day)
 False
->>> print account.bonus_state
+>>> print(account.bonus_state)
 Enabled
 >>> account.toggle_bonus()
->>> print account.bonus_state
+>>> print(account.bonus_state)
 Disabled
->>> print sizeof_fmt(account.bonus_rest)
+>>> print(sizeof_fmt(account.bonus_rest))
 10.0 GiB
 ```

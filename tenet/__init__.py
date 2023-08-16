@@ -28,6 +28,7 @@ class TenetAccount(object):
     BONUS_ENABLED = "Enabled"
     BONUS_DISABLED = "Disabled"
     BONUS_ENDED = "Ended"
+    BONUS_ABSENT = "Absent"
 
     USER_AGENT = "TenetAccount/1.0"
 
@@ -156,6 +157,8 @@ class TenetAccount(object):
             self._bonus_state = self.BONUS_DISABLED
         elif value.upper() == 'END':
             self._bonus_state = self.BONUS_ENDED
+        elif value.upper() == 'ABSENT':
+            self._bonus_state = self.BONUS_ABSENT
 
     @property
     def bonus_rest(self):
